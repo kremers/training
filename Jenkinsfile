@@ -9,8 +9,11 @@ node {
    }
    stage('Build') {
      lock(inversePrecedence: true, resource: 'ENV990_DATABASE') {
+       timeout(time: 10, unit: 'SECONDS') {
+         input 'proceed?'
+       }
        sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package"
-       sleep 60
+       sleep 30
      }
    }
    stage('Results') {
