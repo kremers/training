@@ -8,7 +8,10 @@ node {
      mvnHome = tool 'M3'
    }
    stage('Build') {
-     sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package" 
+     lock(inversePrecedence: true, resource: 'ENV990_DATABASE') {
+       sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package"
+       sleep 60
+     }
    }
    stage('Results') {
       junit '**/target/surefire-reports/TEST-*.xml'
