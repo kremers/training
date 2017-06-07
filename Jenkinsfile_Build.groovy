@@ -10,6 +10,7 @@ def run_pipeline_stages() {
    stage('Results') {
       junit '**/target/surefire-reports/TEST-*.xml'
       archive 'target/*.jar'
+      stash includes:'target/*.jar',name:'build_artifact'
    }
 }
 
