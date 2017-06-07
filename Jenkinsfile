@@ -1,24 +1,15 @@
-node {
-   def mvnHome
-   stage('Preparation') { // for display purposes
-      // Get some code from a GitHub repository
-      checkout scm
-      //git 'https://github.com/jglick/simple-maven-project-with-tests.git'
-      // Get the Maven tool.
-      // ** NOTE: This 'M3' Maven tool must be configured
-      // **       in the global configuration.           
-      mvnHome = tool 'M3'
-   }
-   stage('Build') {
-      // Run the maven build
-      if (isUnix()) {
-         sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package"
-      } else {
-         bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
-      }
-   }
-   stage('Results') {
-      junit '**/target/surefire-reports/TEST-*.xml'
-      archive 'target/*.jar'
-   }
+node("master") {
+  checkout scm
+
+  def rootDir = pwd() 
+  def p1 = load "${rootDir}@script/Jenkinsfile_Build.groovy"  
+  if(params.BUILD != "false") {
+    p1.run_pipeline_stages()
+  } else {
+    p1.dummy_stages()
+  }
+
+  def p2 = load "${rootDir}@script/Jenkinsfile_Deploy.groovy"
+  p2.run_pipeline_stages()
+
 }
