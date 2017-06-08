@@ -1,7 +1,7 @@
 def run_pipeline_stages() {
   def extWorkspace = null
   if(params.RETRY_FROM != "") {
-    def run = selectRun job: 'training_pipeline', selector: buildNumber(params.RETRY_FROM)
+    def run = selectRun job: JOB_NAME, selector: buildNumber(params.RETRY_FROM)
     extWorkspace = exwsAllocate selectedRun: run
   } else {
     extWorkspace = exwsAllocate 'diskpool1'
