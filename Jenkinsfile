@@ -11,7 +11,9 @@
    }
    stage('Results') {
      node {
-       unstash 'pack'
+       dir("target") {       
+         unstash 'pack'
+       }
        junit '**/target/surefire-reports/TEST-*.xml'
        archive 'target/*.jar'
      }
