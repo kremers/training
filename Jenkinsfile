@@ -13,12 +13,13 @@ node {
       archive 'target/spring-petclinic-*.jar'
   }
   stage('sonar') {
-    def scannerHome = tool 'SonarQubeScanner';
     ansiColor('xterm') {
       withSonarQubeEnv('SonarQubeServer') {
-        sh "${scannerHome}/bin/sonar-scanner"
+        def mvnHome = tool 'M3'
+        sh "${mvnHome}/bin/mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar"
       }
     }
   }
 }
+
 
