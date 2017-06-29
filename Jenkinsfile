@@ -10,7 +10,10 @@
        deleteDir()
      }
    }
-   stage('Results') {
+   
+   checkpoint 'continue_after_build'
+   
+   stage('Archive results') {
      node {
        dir("target") {       
          unstash 'pack'
@@ -19,5 +22,24 @@
        archive 'target/*.jar'
        deleteDir()
      }
+   }
+
+parallel ( 
+   "Static code test" : { 
+     stage('Static code test') {
+         sleep 10
+     } 
+   },
+   "Integration test" : { 
+     stage('Integration test') {
+       sleep 10
+     } 
+   }
+)
+   checkpoint 'continue_after_test'
+   
+   stage('Deploy') {
+       input 'do you really want to deploy?'
+       sleep 10
    }
 
