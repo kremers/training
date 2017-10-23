@@ -9,9 +9,9 @@ node {
       // **       in the global configuration.           
       mvnHome = tool 'M3'
    }
-   checkpoint 'charles'
    stage('Build') {
       // Run the maven build
+      checkpoint 'charles'
       if (isUnix()) {
          sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package"
       } else {
