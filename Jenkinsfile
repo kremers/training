@@ -21,7 +21,15 @@ node {
       archive 'target/spring-petclinic-*.jar'
   }
   stage('sonar') {
-    def scannerHome = tool 'SonarQubeScanner';
+
+   sh '''echo "sonar.projectKey=petclinic" >> sonar-project.properties
+   echo "sonar.projectName=petclinic" >> sonar-project.properties
+   echo "sonar.projectVersion=1.0" >> sonar-project.properties
+   echo "sonar.sources=src/main/java/" >> sonar-project.properties
+   echo "sonar.language=java" >> sonar-project.properties
+   echo "sonar.java.binaries=**/target/classes" >> sonar-project.properties'''
+
+   def scannerHome = tool 'SonarQubeScanner';
     ansiColor('xterm') {
       withSonarQubeEnv('SonarQubeServer') {
         sh "${scannerHome}/bin/sonar-scanner"
