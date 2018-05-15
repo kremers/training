@@ -26,7 +26,7 @@ node {
     ansiColor('xterm') {
       withSonarQubeEnv('SonarQubeServer') {
         def mvnHome = tool 'M3'
-        sh "${mvnHome}/bin/mvn org.sonarsource.scanner.maven:sonar-maven-plugin:5.1:sonar"
+        sh "${mvnHome}/bin/mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.4.0.905:sonar"
       }
     }
   }
