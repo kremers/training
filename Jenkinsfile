@@ -13,7 +13,7 @@ node {
   stage('Cubertura') {
     ansiColor('xterm') {
       def mvnHome = tool 'M3'
-      sh "'${mvnHome}/bin/mvn' cobertura:cobertura"
+      sh "'${mvnHome}/bin/mvn' cobertura:cobertura -Dcobertura.report.format=xml"
     }
   }
   
