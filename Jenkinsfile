@@ -6,14 +6,7 @@ node {
   stage('build') {
     ansiColor('xterm') {
       def mvnHome = tool 'M3'
-      sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package"
-    }
-  }
-  
-  stage('Cubertura') {
-    ansiColor('xterm') {
-      def mvnHome = tool 'M3'
-      sh "'${mvnHome}/bin/mvn' cobertura:cobertura -Dcobertura.report.format=xml"
+      sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore cobertura:cobertura -Dcobertura.report.format=xml clean package"
     }
   }
   
