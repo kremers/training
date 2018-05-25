@@ -1,0 +1,19 @@
+stage("build") {
+  node {
+    sh 'echo "build something!"'  
+  }
+}
+stage ("balance out leg 1") {
+    node {
+        sh 'echo "execute automation to balance out leg 1"'
+    }
+}
+stage ("deploy on leg 1") {
+    sleep 10
+}
+stage ("balance in 1") {
+    node {
+        sh 'echo "execute automation to balance in leg 1"'
+    }
+}
+
