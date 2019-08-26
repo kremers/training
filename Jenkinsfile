@@ -30,4 +30,10 @@
      }
    }
 
+   stage('Hello') {
+     node {
+       echo 'Hello World'
+     }
+   }
+
 
