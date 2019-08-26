@@ -29,5 +29,10 @@
        sh 'sleep 10'
      }
    }
+   stage('HelloWorld') {
+     node {
+       echo 'Hello World'
+     }
+   }
 
 
